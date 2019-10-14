@@ -1,98 +1,75 @@
-import java.io.*;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import javax.swing.*;
-class Calculator extends JFrame implements ActionListener
+class Calculator extends WindowAdapter implements ActionListener 
 {
-    String ar[];
+    JFrame f;
+    JPanel p;
+    GridLayout g;
+    JButton b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,b_add,b_sub,b_div,b_mul,b_eq,b_mod,b_del,b_cls,b_dot;
+    JTextField screen,t2;
     int i=0;
-    JTextField t1=new JTextField(20);
-    JTextField t2=new JTextField(3);
-    JButton bma=new JButton(" M ");
-    JButton bcb=new JButton(" cub ");
-    JButton bc=new JButton(" C ");
-    JButton bce=new JButton("Backspace");
-    JButton bd=new JButton("  /  ");
-    JButton bno=new JButton(" +/- ");
-    JButton b7=new JButton(" 7 ");
-    JButton b8=new JButton(" 8 ");
-    JButton b9=new JButton(" 9 ");
-    JButton bm=new JButton(" x  ");
-    JButton bsq=new JButton("sqrt");
-    JButton b4=new JButton(" 4 ");
-    JButton b5=new JButton(" 5 ");
-    JButton b6=new JButton(" 6 ");
-    JButton bs=new JButton(" -- ");
-    JButton bmod=new JButton("  %  ");
-    JButton b1=new JButton(" 1 ");
-    JButton b2=new JButton(" 2 ");
-    JButton b3=new JButton(" 3 ");
-    JButton ba=new JButton(" + ");
-    JButton bre=new JButton(" 1/x ");
-    JButton b0=new JButton("  0  ");
-    JButton bdo=new JButton(" . ");
-    JButton be=new JButton(" = ");
-    JButton bmc=new JButton("  MC  ");
-    JButton bmr=new JButton("  MR  ");
-    JButton bms=new JButton("  MS  ");
-    JButton bmsu=new JButton("  M-  ");
-    JLabel l3=new JLabel("           Author   :   ADITYA PANDEY");
-    public Calculator()
+    String ar[];
+    Calculator()
     {
-        setLayout(new FlowLayout());
-        setSize(359,400);
-        setVisible(true);
-        setResizable(false);
-        t1.setEditable(false);
+        f=new JFrame("Calculator");
+        f.setLayout(new FlowLayout());
+
+        //initializing Buttons
+        b0=new JButton("0");
+        b1=new JButton("1");
+        b2=new JButton("2");
+        b3=new JButton("3");
+        b4=new JButton("4");
+        b5=new JButton("5");
+        b6=new JButton("6");
+        b7=new JButton("7");
+        b8=new JButton("8");
+        b9=new JButton("9");
+        b_add=new JButton("+");
+        b_sub=new JButton("-");
+        b_div=new JButton("/");
+        b_mul=new JButton("x");
+        b_eq=new JButton("=");
+        b_mod=new JButton("%");
+        b_del=new JButton("Del");
+        b_cls=new JButton("Clear");
+        b_dot=new JButton(".");
+
+        screen=new JTextField("0",20);
+        t2=new JTextField("",2);
+        f.add(screen);
+        f.add(t2);
+        screen.setEditable(false);
         t2.setEditable(false);
-        setTitle("CALCULATOR");
-        //add(st);
-        //add(sc);
-        add(t1);
-        add(t2);
-        t2.setEditable(false);
-        add(bma);
-        add(bcb);
-        add(bc);
-        add(bce);
-        add(bd);
-        add(bno);
-        add(b7);
-        add(b8);
-        add(b9);
-        add(bm);
-        add(bsq);
-        add(b4);
-        add(b5);
-        add(b6);
-        add(bs);
-        add(bmod);
-        add(b1);
-        add(b2);
-        add(b3);
-        add(ba);
-        add(bre);
-        add(b0);
-        add(bdo);
-        add(be);
-        add(bmc);
-        add(bmr);
-        add(bms);
-        add(bmsu);
-        bmc.addActionListener(this);
-        //st.addActionListener(this);
-        //sc.addActionListener(this);
-        bmr.addActionListener(this);
-        bms.addActionListener(this);
-        bsq.addActionListener(this);
-        bcb.addActionListener(this);
-        bma.addActionListener(this);
-        bmsu.addActionListener(this);
-        bre.addActionListener(this);
-        bce.addActionListener(this);
-        bdo.addActionListener(this);
-        bmod.addActionListener(this);
-        bc.addActionListener(this);
+        g=new GridLayout(5,5,1,1);
+        p=new JPanel();
+        p.setLayout(g);
+
+        p.add(b1);
+        p.add(b2);
+        p.add(b3);
+        p.add(b_add);
+        p.add(b4);
+        p.add(b5);
+        p.add(b6);
+        p.add(b_sub);
+        p.add(b7);
+        p.add(b8);
+        p.add(b9);
+        p.add(b_div);
+        p.add(b_mod);
+        p.add(b0);
+        p.add(b_eq);
+        p.add(b_mul);
+        p.add(new JButton(""));
+        p.add(b_del);
+        p.add(b_cls);
+        p.add(b_dot);
+
+        f.add(p);
+
+        b0.addActionListener(this);
         b1.addActionListener(this);
         b2.addActionListener(this);
         b3.addActionListener(this);
@@ -102,16 +79,21 @@ class Calculator extends JFrame implements ActionListener
         b7.addActionListener(this);
         b8.addActionListener(this);
         b9.addActionListener(this);
-        b0.addActionListener(this);
-        ba.addActionListener(this);
-        bs.addActionListener(this);
-        bm.addActionListener(this);
-        bd.addActionListener(this);
-        be.addActionListener(this);
-        t1.setText ("0.0");
+        b_add.addActionListener(this);
+        b_sub.addActionListener(this);
+        b_div.addActionListener(this);
+        b_mul.addActionListener(this);
+        b_del.addActionListener(this);
+        b_dot.addActionListener(this);
+        b_eq.addActionListener(this);
+        b_mod.addActionListener(this);
+        b_cls.addActionListener(this);
+
+        f.setSize(270,200);
+        f.addWindowListener(this);
+        f.setVisible(true);
+        f.setResizable(false);
         ar=new String[10];
-        i=0;
-        add(l3);
     }
 
     public void actionPerformed(ActionEvent e)
@@ -120,171 +102,188 @@ class Calculator extends JFrame implements ActionListener
 
         if(e.getSource()==b1)
         {
-            a=(Double.parseDouble(t1.getText())*10)+1.0;
-            t1.setText(String.valueOf(a));
+            a=(Double.parseDouble(screen.getText())*10)+1.0;
+            screen.setText(String.valueOf(a));
         }
 
         if(e.getSource()==b2)
         {
 
-            a=(Double.parseDouble(t1.getText())*10)+2.0;
-            t1.setText(String.valueOf(a));
+            a=(Double.parseDouble(screen.getText())*10)+2.0;
+            screen.setText(String.valueOf(a));
         }
         if(e.getSource()==b3)
         {
 
-            a=(Double.parseDouble(t1.getText())*10)+3.0;
-            t1.setText(String.valueOf(a));
+            a=(Double.parseDouble(screen.getText())*10)+3.0;
+            screen.setText(String.valueOf(a));
         }
         if(e.getSource()==b4)
         {
 
-            a=(Double.parseDouble(t1.getText())*10)+4.0;
-            t1.setText(String.valueOf(a));
+            a=(Double.parseDouble(screen.getText())*10)+4.0;
+            screen.setText(String.valueOf(a));
         }
         if(e.getSource()==b5)
         {
 
-            a=(Double.parseDouble(t1.getText())*10)+5.0;
-            t1.setText(String.valueOf(a));
+            a=(Double.parseDouble(screen.getText())*10)+5.0;
+            screen.setText(String.valueOf(a));
         }
         if(e.getSource()==b6)
         {
 
-            a=(Double.parseDouble(t1.getText())*10)+6.0;
-            t1.setText(String.valueOf(a));
+            a=(Double.parseDouble(screen.getText())*10)+6.0;
+            screen.setText(String.valueOf(a));
         }
         if(e.getSource()==b7)
         {
 
-            a=(Double.parseDouble(t1.getText())*10)+7.0;
-            t1.setText(String.valueOf(a));
+            a=(Double.parseDouble(screen.getText())*10)+7.0;
+            screen.setText(String.valueOf(a));
         }
         if(e.getSource()==b8)
         {
 
-            a=(Double.parseDouble(t1.getText())*10)+8.0;
-            t1.setText(String.valueOf(a));
+            a=(Double.parseDouble(screen.getText())*10)+8.0;
+            screen.setText(String.valueOf(a));
         }
         if(e.getSource()==b9)
         {
 
-            a=(Double.parseDouble(t1.getText())*10)+9.0;
-            t1.setText(String.valueOf(a));
+            a=(Double.parseDouble(screen.getText())*10)+9.0;
+            screen.setText(String.valueOf(a));
         }
         if(e.getSource()==b0)
         {
 
-            a=(Double.parseDouble(t1.getText())*10)+0.0;
-            t1.setText(String.valueOf(a));
+            a=(Double.parseDouble(screen.getText())*10)+0.0;
+            screen.setText(String.valueOf(a));
         }
-        if(e.getSource()==ba)
+        if(e.getSource()==b_add)
         {
-            ar[i]=t1.getText();
+            ar[i]=screen.getText();
             i++;
             t2.setText("+");
-            t1.setText("0.0");
-            //ar[i]="+";
+            screen.setText("0");
         }
-        if(e.getSource()==bs)
+        if(e.getSource()==b_sub)
         {
 
-            ar[i]=t1.getText();
+            ar[i]=screen.getText();
             i++;
             t2.setText("-");
-            t1.setText("0.0");
+            screen.setText("0");
         }
-        if(e.getSource()==bm)
+        if(e.getSource()==b_mul)
         {
 
-            ar[i]=t1.getText();
+            ar[i]=screen.getText();
 
             t2.setText("X");
-            t1.setText("0.0");
+            screen.setText("0");
         }
-        if(e.getSource()==bdo)
+        /*if(e.getSource()==b_dot)
         {
-
-            String sdf=t1.getText();
+            
+            String sdf=screen.getText();
             sdf=sdf.substring(-1,(sdf.length()-2));
-            t1.setText(sdf+".");
-        }
-        if(e.getSource()==bd)
+            screen.setText(sdf+".");
+        }*/
+        if(e.getSource()==b_div)
         {
 
-            ar[i]=t1.getText();
+            ar[i]=screen.getText();
 
             t2.setText("/");
-            t1.setText("0.0");
+            screen.setText("0.0");
         }
-        
-        if(e.getSource()==bsq)
+        if(e.getSource()==b_mod)
         {
-            t1.setText(String.valueOf(Math.sqrt(Double.parseDouble(t1.getText()))));
-        }
-        
-        if(e.getSource()==bce)
-        {
-            String s11="";
-            int l=t1.getText().length();
-            for(int x=0;x<=l-1;x++)
-            {
-                char ch=t1.getText().charAt(x);
-                if(x!=l-3)
-                    s11=s11+ch;
-            }t1.setText(s11);
-        }
-        
-        if(e.getSource()==bcb)
-        {
-            t1.setText(String.valueOf(Math.cbrt(Double.parseDouble(t1.getText()))));
-        }
-        
-        if(e.getSource()==bre)
-        {
-            t1.setText(String.valueOf(1/Double.parseDouble(t1.getText())));
-        }
-        
-        if(e.getSource()==bmod)
-        {
-            ar[i]=t1.getText();
+            ar[i]=screen.getText();
             t2.setText("%");
-            t1.setText("0.0");
+            screen.setText("0.0");
         }
-        
-        if(e.getSource()==be)
+
+        if(e.getSource()==b_eq)
         {
+			String store="";
             if(t2.getText().equals("+"))
             {
-                t1.setText(String.valueOf(Double.parseDouble(ar[0])+Double.parseDouble(t1.getText())));
+				store=String.valueOf(Double.parseDouble(ar[0])+Double.parseDouble(screen.getText()));
+                screen.setText(store);
             }
             if(t2.getText().equals("-"))
             {
-                t1.setText(String.valueOf(Double.parseDouble(ar[0])-Double.parseDouble(t1.getText())));
+				store=String.valueOf(Double.parseDouble(ar[0])-Double.parseDouble(screen.getText()));
+                screen.setText(store);
             }
             if(t2.getText().equals("X"))
             {
-                t1.setText(String.valueOf(Double.parseDouble(ar[0])*Double.parseDouble(t1.getText())));
+                store=String.valueOf(Double.parseDouble(ar[0])-Double.parseDouble(screen.getText()));
+                screen.setText(store);
             }
             if(t2.getText().equals("/"))
             {
-                t1.setText(String.valueOf(Double.parseDouble(ar[0])/Double.parseDouble(t1.getText())));
+				double deno=Double.parseDouble(screen.getText());
+				if(deno!=0)
+				{
+					store=String.valueOf(Double.parseDouble(ar[0])/deno);
+				}
+				else
+				{
+					store="infinity";
+				}
+                screen.setText(store);
             }
             if(t2.getText().equals("%"))
             {
-                t1.setText(String.valueOf(Double.parseDouble(ar[0])%Double.parseDouble(t1.getText())));
+                store=String.valueOf(Double.parseDouble(ar[0])%Double.parseDouble(screen.getText()));
+                screen.setText(store);
             }
+			if(store.equals("infinity"))
+			{
+				
+			}
+			else
+			{
+				ar[i]=store;
+			}
+			i=0;
+			t2.setText("");
         }
-        if(e.getSource()==bc)
+        if(e.getSource()==b_cls)
         {
-            t1.setText("0.0");
+            screen.setText("0");
             i=0;
             t2.setText("");
         }
-
+        if(e.getSource()==b_del)
+        {
+            String s11="";
+            int l=screen.getText().length();
+            for(int x=0;x<=l-1;x++)
+            {
+                char ch=screen.getText().charAt(x);
+                if(x!=l-3)
+                {
+                    s11=s11+ch;
+                }
+            }
+			if(s11.length()==2)
+			{
+				s11="0";
+			}
+            screen.setText(s11);
+        }
     }
+
+    public void windowClosing(WindowEvent e) {  
+        f.dispose();  
+    } 
+
     public static void main(String args[])
     {
-        Calculator ob=new Calculator();
+        new Calculator();
     }
 }
