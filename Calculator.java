@@ -1,10 +1,14 @@
+/**
+   Calculator Program 
+   Aditya Pandey
+*/
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 class Calculator extends WindowAdapter implements ActionListener 
 {
     JFrame f;
-    JPanel p;
+    JPanel p,p_area;
     GridLayout g;
     JButton b0,b1,b2,b3,b4,b5,b6,b7,b8,b9,b_add,b_sub,b_div,b_mul,b_eq,b_mod,b_del,b_cls,b_dot;
     JTextField screen,t2;
@@ -36,7 +40,7 @@ class Calculator extends WindowAdapter implements ActionListener
         b_cls=new JButton("Clear");
         b_dot=new JButton(".");
 
-        screen=new JTextField("0",20);
+        screen=new JTextField("0.0",20);
         t2=new JTextField("",2);
         f.add(screen);
         f.add(t2);
@@ -165,7 +169,7 @@ class Calculator extends WindowAdapter implements ActionListener
             ar[i]=screen.getText();
             i++;
             t2.setText("+");
-            screen.setText("0");
+            screen.setText("0.0");
         }
         if(e.getSource()==b_sub)
         {
@@ -173,7 +177,7 @@ class Calculator extends WindowAdapter implements ActionListener
             ar[i]=screen.getText();
             i++;
             t2.setText("-");
-            screen.setText("0");
+            screen.setText("0.0");
         }
         if(e.getSource()==b_mul)
         {
@@ -181,7 +185,7 @@ class Calculator extends WindowAdapter implements ActionListener
             ar[i]=screen.getText();
 
             t2.setText("X");
-            screen.setText("0");
+            screen.setText("0.0");
         }
         /*if(e.getSource()==b_dot)
         {
@@ -254,7 +258,7 @@ class Calculator extends WindowAdapter implements ActionListener
         }
         if(e.getSource()==b_cls)
         {
-            screen.setText("0");
+            screen.setText("0.0");
             i=0;
             t2.setText("");
         }
@@ -272,7 +276,7 @@ class Calculator extends WindowAdapter implements ActionListener
             }
 			if(s11.length()==2)
 			{
-				s11="0";
+				s11="0.0";
 			}
             screen.setText(s11);
         }
